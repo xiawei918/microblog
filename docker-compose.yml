@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  flask:
+    image: microblog:latest
+    ports: 
+      - "8000:5000"
+    env_file:
+      - variables.env
+    links:
+      - dbserver:dbserver
+    depends_on:
+      - dbserver
+
+  dbserver:
+    image: mysql/mysql-server:latest
+    container_name: dbserver
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=microblog
+      - MYSQL_USER=microblog
+      - MYSQL_PASSWORD=password
+      - data:/var/lib/mysql
+
+volumes:
+  data:

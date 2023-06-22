@@ -1,2 +1,5 @@
 .flaskenv
 venv/*
+logs/*
+*.env
+*.db

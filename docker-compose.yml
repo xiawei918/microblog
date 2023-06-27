@@ -2,6 +2,7 @@ version: '2'
 
 services:
   flask:
+    build: .
     image: microblog:latest
     ports: 
       - "8000:5000"

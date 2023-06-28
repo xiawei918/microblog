@@ -5,3 +5,4 @@ logs/*
 *.db
 .DS_Store
 app/static/*
+certs/*

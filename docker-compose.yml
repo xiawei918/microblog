@@ -4,12 +4,13 @@ services:
   flask:
     build: .
     image: microblog:latest
+    restart: always
     ports: 
-      - "8000:5000"
+      - "5000"
     env_file:
       - variables.env
-    links:
-      - dbserver:dbserver
+    networks:
+      - app-network
     depends_on:
       - dbserver
 
@@ -21,7 +22,28 @@ services:
       - MYSQL_DATABASE=microblog
       - MYSQL_USER=microblog
       - MYSQL_PASSWORD=password
+    volumes:
       - data:/var/lib/mysql
+    networks:
+      - app-network
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/ssl
+    depends_on:
+      - flask
+    networks:
+      - app-network
+    restart: always
 
 volumes:
   data:
+
+networks:
+  app-network:

@@ -1,5 +1,7 @@
 # microblog
 
+A microblog created using Flask. See [demo](http://allendalemicroblog.com/).
+
 ## Start the service via flask local server
 
 1. create a virtual environment using `Python`
